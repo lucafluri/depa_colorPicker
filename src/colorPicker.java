@@ -97,9 +97,9 @@ public class colorPicker {
 
 
         //Slider
-        RSlider = new JSlider();
-        GSlider = new JSlider();
-        BSlider = new JSlider();
+        RSlider = new JSlider(0, 255, 0);
+        GSlider = new JSlider(0, 255, 0);
+        BSlider = new JSlider(0, 255, 0);
 
         //TextFields
         RInput = new TextField();
@@ -204,11 +204,30 @@ public class colorPicker {
         });
     }
 
+    private void setupBinding(){
+        //Slider -> TextField
+        RSlider.addChangeListener(e -> {
+            RInput.setText(String.valueOf(RSlider.getValue()));
+        });
+        GSlider.addChangeListener(e -> {
+            GInput.setText(String.valueOf(GSlider.getValue()));
+        });
+        BSlider.addChangeListener(e -> {
+            BInput.setText(String.valueOf(BSlider.getValue()));
+        });
+
+        //TextField -> Slider
+        //TODO
+
+    }
+
+
 
 
     colorPicker(){
         setup();
         setHandlers();
+        setupBinding();
 
     }
 
