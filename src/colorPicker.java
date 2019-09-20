@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.geom.Rectangle2D;
@@ -102,14 +104,14 @@ public class colorPicker {
         BSlider = new JSlider(0, 255, 0);
 
         //TextFields
-        RInput = new TextField();
-        GInput = new TextField();
-        BInput = new TextField();
+        RInput = new TextField("0");
+        GInput = new TextField("0");
+        BInput = new TextField("0");
 
         //Labels
-        RLabel = new Label();
-        GLabel = new Label();
-        BLabel = new Label();
+        RLabel = new Label("0");
+        GLabel = new Label("0");
+        BLabel = new Label("0");
 
         //Add all elements to nested panels
         panelUpSlider.add(RSlider, BorderLayout.NORTH);
@@ -204,20 +206,70 @@ public class colorPicker {
         });
     }
 
+
     private void setupBinding(){
         //Slider -> TextField
         RSlider.addChangeListener(e -> {
-            RInput.setText(String.valueOf(RSlider.getValue()));
+            //Write Slider Value to "model"
+            rValue = RSlider.getValue();
+            RInput.setText(String.valueOf(rValue));
+
+            //Set Hexcode
+            RLabel.setText(Integer.toHexString(rValue));
         });
         GSlider.addChangeListener(e -> {
-            GInput.setText(String.valueOf(GSlider.getValue()));
+            gValue = GSlider.getValue();
+            GInput.setText(String.valueOf(gValue));
+
+            //Set Hexcode
+            GLabel.setText(Integer.toHexString(gValue));
         });
         BSlider.addChangeListener(e -> {
-            BInput.setText(String.valueOf(BSlider.getValue()));
+            bValue = BSlider.getValue();
+            BInput.setText(String.valueOf(bValue));
+
+            //Set Hexcode
+            BLabel.setText(Integer.toHexString(bValue));
         });
 
         //TextField -> Slider
-        //TODO
+        RInput.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                try {
+                    int parsed = Integer.parseInt(RInput.getText());
+                    rValue = parsed >=0 && parsed < 256 ? parsed : 0;
+                    RSlider.setValue(rValue);
+                    //Set Hexcode
+                    RLabel.setText(Integer.toHexString(rValue));
+                }catch (Exception ignored){}
+            }
+        });
+        GInput.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                try {
+                    int parsed = Integer.parseInt(GInput.getText());
+                    gValue = parsed >=0 && parsed < 256 ? parsed : 0;
+                    GSlider.setValue(gValue);
+                    //Set Hexcode
+                    GLabel.setText(Integer.toHexString(gValue));
+                }catch (Exception ignored){}
+            }
+        });
+        BInput.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                try {
+                    int parsed = Integer.parseInt(BInput.getText());
+                    bValue = parsed >=0 && parsed < 256 ? parsed : 0;
+                    BSlider.setValue(bValue);
+                    //Set Hexcode
+                    BLabel.setText(Integer.toHexString(bValue));
+                }catch (Exception ignored){}
+            }
+        });
+
 
     }
 
