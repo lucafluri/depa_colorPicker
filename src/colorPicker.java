@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.geom.Rectangle2D;
+import java.util.Random;
 
 public class colorPicker {
     //Declare all Variables
@@ -38,6 +39,7 @@ public class colorPicker {
     private JRadioButton radioorange;
     private JRadioButton radioblack;
     private JRadioButton radiowhite;
+    private JRadioButton[] radioButtons;
     private JButton darkerButton;
     private JButton brighterButton;
 
@@ -52,7 +54,9 @@ public class colorPicker {
 
         menuBar = new MenuBar();
 
-        color = Color.black;
+
+        Random rand = new Random();
+        color = new Color(rand.nextInt(256),rand.nextInt(256), rand.nextInt(256));
 
         //Creating Menu1
         menu1 = new Menu("File");
@@ -146,7 +150,7 @@ public class colorPicker {
         panelLowButtons.setLayout(new BorderLayout());
 
         colorRectangle = new Panel();
-        colorRectangle.setBackground(Color.black);
+        colorRectangle.setBackground(color);
         colorRectangle.setSize(200, 200);
         colorRectangle.setPreferredSize(new Dimension(200, 200));
 
@@ -158,6 +162,18 @@ public class colorPicker {
         radioorange= new JRadioButton("orange");
         radioblack= new JRadioButton("black");
         radiowhite= new JRadioButton("white");
+
+        //Creating RadioButton Array for easier user later
+        radioButtons = new JRadioButton[8];
+        radioButtons[0] = radioRed;
+        radioButtons[1] = radiogreen;
+        radioButtons[2] = radioblue;
+        radioButtons[3] = radiocyan;
+        radioButtons[4] = radioyellow;
+        radioButtons[5] = radioorange;
+        radioButtons[6] = radioblack;
+        radioButtons[7] = radiowhite;
+
 
         darkerButton = new JButton("Darker");
         brighterButton = new JButton("Brighter");
@@ -195,6 +211,8 @@ public class colorPicker {
         f.setMenuBar(menuBar);
         f.setSize(500, 400);
         f.setVisible(true);
+
+        updateAll();
 
     }
 
@@ -291,6 +309,66 @@ public class colorPicker {
             updateAll();
         });
 
+        //Radio Buttons
+        radioRed.addActionListener(e -> {
+            color = Color.red;
+            updateAll();
+        });
+        radiogreen.addActionListener(e -> {
+            color = Color.green;
+            updateAll();
+        });
+        radioblue.addActionListener(e -> {
+            color = Color.blue;
+            updateAll();
+        });
+        radiocyan.addActionListener(e -> {
+            color = Color.cyan;
+            updateAll();
+        });
+        radioyellow.addActionListener(e -> {
+            color = Color.yellow;
+            updateAll();
+        });
+        radioorange.addActionListener(e -> {
+            color = Color.orange;
+            updateAll();
+        });
+        radioblack.addActionListener(e -> {
+            color = Color.black;
+            updateAll();
+        });
+        radiowhite.addActionListener(e -> {
+            color = Color.white;
+            updateAll();
+        });
+
+
+        //Menu Attributes
+        m2Item1.addActionListener(e -> { //gray
+            color = Color.gray;
+            updateAll();
+        });
+        m2Item2.addActionListener(e -> { //pink
+            color = Color.pink;
+            updateAll();
+        });
+        m2Item3.addActionListener(e -> { //yellow
+            color = Color.yellow;
+            updateAll();
+        });
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -319,6 +397,22 @@ public class colorPicker {
         darkerButton.setEnabled(!color.equals(Color.black));
 
         //Radio Buttons
+
+        //Deselect all radiobuttons
+        for(JRadioButton r : radioButtons){
+            r.setSelected(false);
+        }
+
+        if(color.equals(Color.red)){radioRed.setSelected(true);}
+        else if(color.equals(Color.green)){radiogreen.setSelected(true);}
+        else if(color.equals(Color.blue)){radioblue.setSelected(true);}
+        else if(color.equals(Color.cyan)){radiocyan.setSelected(true);}
+        else if(color.equals(Color.yellow)){radioyellow.setSelected(true);}
+        else if(color.equals(Color.orange)){radioorange.setSelected(true);}
+        else if(color.equals(Color.black)){radioblack.setSelected(true);}
+        else if(color.equals(Color.white)){radiowhite.setSelected(true);}
+
+
 
 
 
