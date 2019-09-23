@@ -43,9 +43,7 @@ public class colorPicker {
 
 
     //Data
-    private int rValue;
-    private int gValue;
-    private int bValue;
+    private Color color;
 
 
 
@@ -53,6 +51,8 @@ public class colorPicker {
         f = new JFrame("Color Picker by Luca Fluri");
 
         menuBar = new MenuBar();
+
+        color = new Color(0, 0, 0);
 
         //Creating Menu1
         menu1 = new Menu("File");
@@ -193,6 +193,28 @@ public class colorPicker {
 
     }
 
+    private void setColor(int r, int g, int b){
+        color = new Color(r, g, b);
+
+    }
+
+    private void setRed(int r){
+        color = new Color(r, color.getGreen(), color.getBlue());
+    }
+
+    private void setGreen(int g){
+        color = new Color(color.getRed(), g, color.getBlue());
+    }
+
+    private void setBlue(int b){
+        color = new Color(color.getRed(), color.getGreen(), b);
+
+    }
+
+    private int getRed(){return color.getRed();}
+    private int getGreen(){return color.getGreen();}
+    private int getBlue(){return color.getBlue();}
+
     private void setHandlers(){
         m1Item2.addActionListener(e -> {
             System.exit(0);
@@ -211,15 +233,15 @@ public class colorPicker {
         //Slider -> TextField
         RSlider.addChangeListener(e -> {
             //Write Slider Value to "model"
-            rValue = RSlider.getValue();
+            setRed(RSlider.getValue());
             updateAll();
         });
         GSlider.addChangeListener(e -> {
-            gValue = GSlider.getValue();
+            setGreen(GSlider.getValue());
             updateAll();
         });
         BSlider.addChangeListener(e -> {
-            bValue = BSlider.getValue();
+            setBlue(BSlider.getValue());
             updateAll();
         });
 
@@ -229,7 +251,7 @@ public class colorPicker {
             public void keyReleased(KeyEvent e) {
                 try {
                     int parsed = Integer.parseInt(RInput.getText());
-                    rValue = parsed >=0 && parsed < 256 ? parsed : 0;
+                   setRed(parsed >=0 && parsed < 256 ? parsed : 0);
                     updateAll();
                 }catch (Exception ignored){}
             }
@@ -239,7 +261,7 @@ public class colorPicker {
             public void keyReleased(KeyEvent e) {
                 try {
                     int parsed = Integer.parseInt(GInput.getText());
-                    gValue = parsed >=0 && parsed < 256 ? parsed : 0;
+                    setGreen(parsed >=0 && parsed < 256 ? parsed : 0);
                     updateAll();
                 }catch (Exception ignored){}
             }
@@ -249,7 +271,7 @@ public class colorPicker {
             public void keyReleased(KeyEvent e) {
                 try {
                     int parsed = Integer.parseInt(BInput.getText());
-                    bValue = parsed >=0 && parsed < 256 ? parsed : 0;
+                    setBlue(parsed >=0 && parsed < 256 ? parsed : 0);
                     updateAll();
                 }catch (Exception ignored){}
             }
@@ -261,17 +283,17 @@ public class colorPicker {
     }
 
     private void updateAll(){
-        RSlider.setValue(rValue);
-        GSlider.setValue(gValue);
-        BSlider.setValue(bValue);
+        RSlider.setValue(getRed());
+        GSlider.setValue(getGreen());
+        BSlider.setValue(getBlue());
 
-        RInput.setText(Integer.toString(rValue));
-        GInput.setText(Integer.toString(gValue));
-        BInput.setText(Integer.toString(bValue));
+        RInput.setText(Integer.toString(getRed()));
+        GInput.setText(Integer.toString(getGreen()));
+        BInput.setText(Integer.toString(getBlue()));
 
-        RLabel.setText(Integer.toHexString(rValue));
-        GLabel.setText(Integer.toHexString(gValue));
-        BLabel.setText(Integer.toHexString(bValue));
+        RLabel.setText(Integer.toHexString(getRed()));
+        GLabel.setText(Integer.toHexString(getGreen()));
+        BLabel.setText(Integer.toHexString(getBlue()));
 
         //TODO: UPDATE THE REST!
 
