@@ -199,9 +199,6 @@ public class colorPicker {
 
     private void setColor(int r, int g, int b){
         color = new Color(r, g, b);
-
-
-
     }
 
     private void setRed(int r){
@@ -282,6 +279,18 @@ public class colorPicker {
                 }catch (Exception ignored){}
             }
         });
+
+        //Darker/Brighter Button
+        darkerButton.addActionListener(e -> {
+            color = color.darker();
+            updateAll();
+        });
+        brighterButton.addActionListener(e -> {
+            color = color.brighter();
+            updateAll();
+        });
+
+
 
 
 
