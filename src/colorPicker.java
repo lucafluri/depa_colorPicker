@@ -318,7 +318,8 @@ public class colorPicker {
         brighterButton.setEnabled(!color.equals(Color.white));
         darkerButton.setEnabled(!color.equals(Color.black));
 
-        
+        //Radio Buttons
+
 
 
 
