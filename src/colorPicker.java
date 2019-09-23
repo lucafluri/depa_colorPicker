@@ -26,9 +26,9 @@ public class colorPicker {
     private TextField RInput;
     private TextField GInput;
     private TextField BInput;
-    private Label RLabel;
-    private Label GLabel;
-    private Label BLabel;
+    private TextField RLabel;
+    private TextField GLabel;
+    private TextField BLabel;
     private Label colorRectangle;
     private JRadioButton radioRed;
     private JRadioButton radioblue;
@@ -46,10 +46,6 @@ public class colorPicker {
     private int rValue;
     private int gValue;
     private int bValue;
-    private int rHexValue;
-    private int gHexValue;
-    private int bHexValue;
-
 
 
 
@@ -109,9 +105,13 @@ public class colorPicker {
         BInput = new TextField("0");
 
         //Labels
-        RLabel = new Label("0");
-        GLabel = new Label("0");
-        BLabel = new Label("0");
+        RLabel = new TextField("0");
+        GLabel = new TextField("0");
+        BLabel = new TextField("0");
+
+        RLabel.disable();
+        GLabel.disable();
+        BLabel.disable();
 
         //Add all elements to nested panels
         panelUpSlider.add(RSlider, BorderLayout.NORTH);
@@ -212,24 +212,15 @@ public class colorPicker {
         RSlider.addChangeListener(e -> {
             //Write Slider Value to "model"
             rValue = RSlider.getValue();
-            RInput.setText(String.valueOf(rValue));
-
-            //Set Hexcode
-            RLabel.setText(Integer.toHexString(rValue));
+            updateAll();
         });
         GSlider.addChangeListener(e -> {
             gValue = GSlider.getValue();
-            GInput.setText(String.valueOf(gValue));
-
-            //Set Hexcode
-            GLabel.setText(Integer.toHexString(gValue));
+            updateAll();
         });
         BSlider.addChangeListener(e -> {
             bValue = BSlider.getValue();
-            BInput.setText(String.valueOf(bValue));
-
-            //Set Hexcode
-            BLabel.setText(Integer.toHexString(bValue));
+            updateAll();
         });
 
         //TextField -> Slider
@@ -239,9 +230,7 @@ public class colorPicker {
                 try {
                     int parsed = Integer.parseInt(RInput.getText());
                     rValue = parsed >=0 && parsed < 256 ? parsed : 0;
-                    RSlider.setValue(rValue);
-                    //Set Hexcode
-                    RLabel.setText(Integer.toHexString(rValue));
+                    updateAll();
                 }catch (Exception ignored){}
             }
         });
@@ -251,9 +240,7 @@ public class colorPicker {
                 try {
                     int parsed = Integer.parseInt(GInput.getText());
                     gValue = parsed >=0 && parsed < 256 ? parsed : 0;
-                    GSlider.setValue(gValue);
-                    //Set Hexcode
-                    GLabel.setText(Integer.toHexString(gValue));
+                    updateAll();
                 }catch (Exception ignored){}
             }
         });
@@ -263,12 +250,32 @@ public class colorPicker {
                 try {
                     int parsed = Integer.parseInt(BInput.getText());
                     bValue = parsed >=0 && parsed < 256 ? parsed : 0;
-                    BSlider.setValue(bValue);
-                    //Set Hexcode
-                    BLabel.setText(Integer.toHexString(bValue));
+                    updateAll();
                 }catch (Exception ignored){}
             }
         });
+
+
+
+
+    }
+
+    private void updateAll(){
+        RSlider.setValue(rValue);
+        GSlider.setValue(gValue);
+        BSlider.setValue(bValue);
+
+        RInput.setText(Integer.toString(rValue));
+        GInput.setText(Integer.toString(gValue));
+        BInput.setText(Integer.toString(bValue));
+
+        RLabel.setText(Integer.toHexString(rValue));
+        GLabel.setText(Integer.toHexString(gValue));
+        BLabel.setText(Integer.toHexString(bValue));
+
+        //TODO: UPDATE THE REST!
+
+
 
 
     }
