@@ -29,7 +29,7 @@ public class colorPicker {
     private TextField RLabel;
     private TextField GLabel;
     private TextField BLabel;
-    private Label colorRectangle;
+    private Panel colorRectangle;
     private JRadioButton radioRed;
     private JRadioButton radioblue;
     private JRadioButton radiogreen;
@@ -145,7 +145,9 @@ public class colorPicker {
         panelLowButtons = new JPanel();
         panelLowButtons.setLayout(new BorderLayout());
 
-        colorRectangle = new Label("INSERT RECT HERE");
+        colorRectangle = new Panel();
+        colorRectangle.setSize(200, 200);
+        colorRectangle.setPreferredSize(new Dimension(200, 200));
 
         radioRed = new JRadioButton("red");
         radiogreen = new JRadioButton("green");
@@ -163,6 +165,8 @@ public class colorPicker {
 
 
         panelLowRect.add(colorRectangle, BorderLayout.CENTER);
+
+
 
         panelLowRadio.add(radioRed);
         panelLowRadio.add(radiogreen);
@@ -195,6 +199,8 @@ public class colorPicker {
 
     private void setColor(int r, int g, int b){
         color = new Color(r, g, b);
+
+
 
     }
 
@@ -295,7 +301,7 @@ public class colorPicker {
         GLabel.setText(Integer.toHexString(getGreen()));
         BLabel.setText(Integer.toHexString(getBlue()));
 
-        //TODO: UPDATE THE REST!
+        colorRectangle.setBackground(color);
 
 
 
