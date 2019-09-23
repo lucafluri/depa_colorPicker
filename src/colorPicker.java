@@ -52,7 +52,7 @@ public class colorPicker {
 
         menuBar = new MenuBar();
 
-        color = new Color(0, 0, 0);
+        color = Color.black;
 
         //Creating Menu1
         menu1 = new Menu("File");
@@ -146,6 +146,7 @@ public class colorPicker {
         panelLowButtons.setLayout(new BorderLayout());
 
         colorRectangle = new Panel();
+        colorRectangle.setBackground(Color.black);
         colorRectangle.setSize(200, 200);
         colorRectangle.setPreferredSize(new Dimension(200, 200));
 
@@ -311,6 +312,13 @@ public class colorPicker {
         BLabel.setText(Integer.toHexString(getBlue()));
 
         colorRectangle.setBackground(color);
+
+
+        //Disables Checks
+        brighterButton.setEnabled(!color.equals(Color.white));
+        darkerButton.setEnabled(!color.equals(Color.black));
+
+        
 
 
 
