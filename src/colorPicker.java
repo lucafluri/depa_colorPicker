@@ -46,6 +46,8 @@ public class colorPicker {
 
     //Data
     private Color color;
+    private Random rand = new Random();
+
 
 
 
@@ -55,12 +57,11 @@ public class colorPicker {
         menuBar = new MenuBar();
 
 
-        Random rand = new Random();
         color = new Color(rand.nextInt(256),rand.nextInt(256), rand.nextInt(256));
 
         //Creating Menu1
         menu1 = new Menu("File");
-        m1Item1 = new MenuItem("Item 1");
+        m1Item1 = new MenuItem("RANDOM COLOR!");
         m1Item2 = new MenuItem("Exit");
 
         //Creating Menu2
@@ -116,6 +117,7 @@ public class colorPicker {
         RLabel.disable();
         GLabel.disable();
         BLabel.disable();
+
 
         //Add all elements to nested panels
         panelUpSlider.add(RSlider, BorderLayout.NORTH);
@@ -177,6 +179,9 @@ public class colorPicker {
 
         darkerButton = new JButton("Darker");
         brighterButton = new JButton("Brighter");
+        darkerButton.setPreferredSize(new Dimension(100, 130));
+        brighterButton.setPreferredSize(new Dimension(100, 130));
+
 
         //Add all elemetns to lower nested panels
 
@@ -358,19 +363,10 @@ public class colorPicker {
             updateAll();
         });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        m1Item1.addActionListener(e -> {
+            color = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
+            updateAll();
+        });
 
 
 
@@ -411,12 +407,6 @@ public class colorPicker {
         else if(color.equals(Color.orange)){radioorange.setSelected(true);}
         else if(color.equals(Color.black)){radioblack.setSelected(true);}
         else if(color.equals(Color.white)){radiowhite.setSelected(true);}
-
-
-
-
-
-
 
     }
 
